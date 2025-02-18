@@ -1,0 +1,16 @@
+# Core dependencies
+crewai
+google-generativeai    # OpenAI API for LLM-based tasks
+langchain # Optional for advanced LLM handling
+
+# Web UI (Optional)
+streamlit # Web interface for code input
+
+# Code Analysis
+astor  # AST parsing for extracting functions
+black # Code formatting & refactoring
+
+# Linting & Testing
+pytest    # Unit testing framework
+flake8    # Linter for clean code
+

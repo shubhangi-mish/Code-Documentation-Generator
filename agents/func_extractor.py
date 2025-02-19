@@ -1,12 +1,13 @@
 import ast
 import astor
-from collections import namedtuple
-
-FunctionInfo = namedtuple("FunctionInfo", ["name", "code"])
+from crewai.tools import tool  # ✅ Correct way to define a CrewAI tool
 
 class FunctionExtractor:
-    def extract_functions(self, code):
-        """Parses Python code and extracts function definitions (including class methods)."""
+    """Extracts function definitions from Python code."""
+
+    @tool  # ✅ CrewAI recognizes this as a valid tool
+    def extract_functions(code: str):
+        """Extracts function definitions from Python code."""
         tree = ast.parse(code)
         functions = []
 
@@ -16,9 +17,8 @@ class FunctionExtractor:
                 try:
                     func_code = ast.unparse(node)  # Extract full function code
                 except AttributeError:  # If Python <3.9, use astor
-                    import astor
                     func_code = astor.to_source(node)
-                functions.append(FunctionInfo(name=func_name, code=func_code))
+                functions.append({"name": func_name, "code": func_code})
 
-        print(functions)
+        print(functions)  # Debugging output
         return functions
